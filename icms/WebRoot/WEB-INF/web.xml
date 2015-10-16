@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<servlet>
+		<servlet-name>TestServlet</servlet-name>
+		<servlet-class>org.icms.web.servlet.TestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TestServlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	<session-config>
+		<session-timeout>1</session-timeout>
+	</session-config>
+	
+	<listener>
+		<listener-class>org.icms.listener.TestListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.icms.listener.TestHttpSessionListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.icms.listener.TestServletRequestListener</listener-class>
+	</listener>
+</web-app>
