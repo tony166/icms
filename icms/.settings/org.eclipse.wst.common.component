@@ -2,6 +2,7 @@
     <wb-module deploy-name="icms">
         <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/WebRoot/WEB-INF/config"/>
         <property name="context-root" value="icms"/>
         <property name="java-output-path" value="/icms/WebRoot/WEB-INF/classes"/>
     </wb-module>

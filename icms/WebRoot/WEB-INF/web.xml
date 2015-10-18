@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-
+	<!-- 
+		配置根context-param不是必须的,需要同时配置ContextLoaderListener才有效
+		param-value可以为空,则没有rootContext
+	 -->
+ 	<context-param>
+    	<param-name>contextConfigLocation</param-name>
+    	<param-value>/WEB-INF/config/applicationContext.xml</param-value>
+    </context-param>
+    
+    
 	<servlet>
-		<servlet-name>TestServlet</servlet-name>
-		<servlet-class>org.icms.web.servlet.TestServlet</servlet-class>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 
+			如果param-value留空,这把父context当做mvcntext,父context可以不存在或不配置
+			如果init-param不配置,spring mvc 会找web应用 WEB_INF 目录下的[servlet-name]-servlet.xml,如果找不到则报错
+			所有与spring有关的笨啊都必须配置在此xml配置到其他地方无效包括父context,如果启用包扫描，也要在这里单独配置controller的扫描描
+		-->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/springmvc-servlet.xml</param-value>
+		</init-param>
+		
+		
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>TestServlet</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>/cms/*</url-pattern>
 	</servlet-mapping>
-	
-	<session-config>
-		<session-timeout>1</session-timeout>
-	</session-config>
-	
+	<!-- 根即父context监听器  -->
 	<listener>
-		<listener-class>org.icms.listener.TestListener</listener-class>
-	</listener>
-	<listener>
-		<listener-class>org.icms.listener.TestHttpSessionListener</listener-class>
-	</listener>
-	<listener>
-		<listener-class>org.icms.listener.TestServletRequestListener</listener-class>
-	</listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+   
 </web-app>
