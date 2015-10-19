@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TestController {
 	public final Log log = LogFactory.getLog(getClass());
 	
-	@RequestMapping("/**/test.do")
-	public String test(){
+	@RequestMapping("/**/test")
+	public String test(String viewName){
 		log.info("test log: " + (null == testBean ? null : testBean.getName()));
-		return "/test.jsp";
+		return viewName;
 	}
 
 	private TestBean testBean;

@@ -8,8 +8,13 @@
     	<param-name>contextConfigLocation</param-name>
     	<param-value>/WEB-INF/config/applicationContext.xml</param-value>
     </context-param>
+    <!-- 根即父context监听器  -->
+	<listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     
     
+    <!-- spring mvc -->
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -22,17 +27,12 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/config/springmvc-servlet.xml</param-value>
 		</init-param>
-		
-		
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>/cms/*</url-pattern>
 	</servlet-mapping>
-	<!-- 根即父context监听器  -->
-	<listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+	
    
 </web-app>

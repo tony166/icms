@@ -8,5 +8,63 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
+        
         <context:component-scan base-package="org.icms.web.controller" />
+        
+        <!-- 如果还存在其它视图Resolver，jspViewResolver的 order的要设置为最大，优先级则最小,不知道为什么-->
+        <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		    <property name="prefix" value="/WEB-INF/jsp/"/>
+		    <!-- 
+			    viewNames:属性代表你在return 视图的名称时.文件名必须带后缀,这样spring会去判断是否是以.jsp结尾,
+				假如说你确实是返回的文件名+后缀名,但是suffix:属性会在创建视图前帮你加上后缀.jsp,
+				这样spring就帮你又加了一遍.jsp,这肯定最后是找不到文件的会异常.
+				viewNames和suffix不能同时设置
+		     -->
+		    <!-- <property name="viewNames" value="" /> -->
+		    <property name="suffix" value=".jsp"/>
+		    <property name="order" value="2" />
+		</bean>
+		
+		 <!-- 
+        	ResourceBundleViewResolver需要一个属性文件来定义view名称对应映射到到一个class和一个URL， 
+        	 使用 ResourceBundleViewResolver，可以只使用一个解析器来混用不同类型的视图技术。
+        	 basename的值会在/WEB-INF/classes/下面寻找views.properties的文件
+        	 veiws.properties的内容如下
+        	 test3.(class)=org.springframework.web.servlet.view.JstlView
+			 test3.url=/WEB-INF/jsp/test3.jsp
+			 其中test3是视图名
+        -->
+       <bean id="resourceViewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+    		<property name="basename" value="views"/>
+    		<property name="order" value="0" />
+		</bean> 
+		
+        <!-- freemarker view配置 -->
+		<bean id="freemarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		    <property name="cache" value="true"/>
+		    <property name="prefix" value=""/>
+		    <property name="suffix" value=".html"/>
+		    <property name="order" value="1" />
+		</bean>
+		<!-- freemarker配置 -->
+		<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+			<!-- 必须配置,value为空则根目录为网站根目录 -->
+			<property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
+			<!-- 
+			<property name="freemarkerVariables">
+		        <map>
+		            <entry key="xml_escape" value-ref="fmXmlEscape"/>
+		        </map>
+    		</property> 
+    		-->
+    		<property name="freemarkerSettings">
+    			<props>
+    				<!-- 一个页面模板[]和<>标签模式只能存一 -->
+    				<prop key="tag_syntax">auto_detect</prop>
+    			</props>
+    		</property>
+		</bean>
+		<!-- <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/> -->
+		
 </beans>
