@@ -3,37 +3,66 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:p="http://www.springframework.org/schema/p"
     xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
-        <context:component-scan base-package="org.icms.bean" />
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
         
+        <context:component-scan base-package="org.icms.bean" />
+        <context:component-scan base-package="org.icms.dao" />
+        <context:component-scan base-package="org.icms.service" />
+        
+        <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations">
+				<list>
+					<value>/WEB-INF/config/jdbc.properties</value>
+				</list>
+			</property>
+		</bean>
         <!-- c3p0数据源 -->
-        <!--  
         <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-	        <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-	        <property name="jdbcUrl" value="jdbc:sqlserver://localhost:1433;DatabaseName=jeecms;SelectMethod=Cursor"/>
-	        <property name="user" value="sa"/>
-	        <property name="password" value="admin"/>
+	        <property name="driverClass" value="${jdbc.driverClassName}" />
+			<property name="jdbcUrl" value="${jdbc.url}" />
+			<property name="user" value="${jdbc.username}" />
+			<property name="password" value="${jdbc.password}" />
+			<property name="autoCommitOnClose" value="true"/>
+			<property name="checkoutTimeout" value="${cpool.checkoutTimeout}"/>
+			<property name="initialPoolSize" value="${cpool.minPoolSize}"/>
+			<property name="minPoolSize" value="${cpool.minPoolSize}"/>
+			<property name="maxPoolSize" value="${cpool.maxPoolSize}"/>
+			<property name="maxIdleTime" value="${cpool.maxIdleTime}"/>
+			<property name="acquireIncrement" value="${cpool.acquireIncrement}"/>
+			<property name="maxIdleTimeExcessConnections" value="${cpool.maxIdleTimeExcessConnections}"/>
         </bean>
-        -->
         
         <!-- sessionfactory配置 -->
-        <!-- 
-        <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 	        <property name="dataSource" ref="dataSource"/>
-	        <property name="mappingResources">
+	       <!--  <property name="mappingResources">
 	            <list>
 	                <value>product.hbm.xml</value>
 	            </list>
 	        </property>
+	        -->
 	        <property name="hibernateProperties">
 	            <value>
-	                hibernate.dialect=org.hibernate.dialect.HSQLDialect
+	                hibernate.dialect=org.hibernate.dialect.SQLServerDialect
+	                hibernate.show_sql=false
+					hibernate.format_sql=false
+					hibernate.jdbc.batch_size=20
 	            </value>
-	        </property>
+	        </property> 
     	</bean>
-    	 -->
+    	
+    	<bean id="transactionManager"
+            class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+       		 <property name="sessionFactory" ref="sessionFactory"/>
+    	</bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    	
 </beans>
