@@ -11,7 +11,12 @@
         
         <context:component-scan base-package="org.icms.web.controller" />
         
-        <!-- 如果还存在其它视图Resolver，jspViewResolver的 order的要设置为最大，优先级则最小,不知道为什么-->
+        <!-- 
+        	
+        	如果不设置order属性，此解析器总是自动定位到解析器链中最后一个
+        	如果要设置order属性，如果还存在其它视图Resolver，jspViewResolver的 order的要设置为最大，优先级则最小
+        	总之要保证InternalResourceViewResolver处在视图解析器链中最后一个
+        -->
         <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 		    <property name="prefix" value="/WEB-INF/jsp/"/>
@@ -23,7 +28,7 @@
 		     -->
 		    <!-- <property name="viewNames" value="" /> -->
 		    <property name="suffix" value=".jsp"/>
-		    <property name="order" value="2" />
+		   <!--  <property name="order" value="10" /> -->
 		</bean>
 		
 		 <!-- 
@@ -37,7 +42,7 @@
         -->
        <bean id="resourceViewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
     		<property name="basename" value="views"/>
-    		<property name="order" value="0" />
+    		<property name="order" value="2" />
 		</bean> 
 		
         <!-- freemarker view配置 -->
