@@ -41,7 +41,7 @@
 	   </taglib>   
    </jsp-config> 
    
-	   <filter>
+	   <!-- <filter>
 		   <filter-name>SpringOpenSessionInViewFilter</filter-name>
 		   <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
 		 </filter>
@@ -49,5 +49,5 @@
 	    <filter-name>SpringOpenSessionInViewFilter</filter-name>
 	    <url-pattern>/*</url-pattern>
 	  </filter-mapping>
-   
+    -->
 </web-app>
