@@ -8,6 +8,32 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
-        <context:annotation-config/>
         <context:component-scan base-package="org.icms.bean" />
+        
+        <!-- c3p0数据源 -->
+        <!--  
+        <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	        <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+	        <property name="jdbcUrl" value="jdbc:sqlserver://localhost:1433;DatabaseName=jeecms;SelectMethod=Cursor"/>
+	        <property name="user" value="sa"/>
+	        <property name="password" value="admin"/>
+        </bean>
+        -->
+        
+        <!-- sessionfactory配置 -->
+        <!-- 
+        <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	        <property name="dataSource" ref="dataSource"/>
+	        <property name="mappingResources">
+	            <list>
+	                <value>product.hbm.xml</value>
+	            </list>
+	        </property>
+	        <property name="hibernateProperties">
+	            <value>
+	                hibernate.dialect=org.hibernate.dialect.HSQLDialect
+	            </value>
+	        </property>
+    	</bean>
+    	 -->
 </beans>

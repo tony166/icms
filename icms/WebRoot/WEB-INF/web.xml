@@ -19,9 +19,9 @@
 		<servlet-name>springmvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<!-- 
-			如果param-value留空,这把父context当做mvcntext,父context可以不存在或不配置
+			如果param-value留空,springmvc会把父context当做mvccontext,父context可以不存在或不配置
 			如果init-param不配置,spring mvc 会找web应用 WEB_INF 目录下的[servlet-name]-servlet.xml,如果找不到则报错
-			所有与spring有关的bean包括controller都必须配置在此xml配置到其他地方无效包括父context,如果启用包扫描，也要在这里单独配置controller的扫描描
+			所有与spring有关的bean包括controller都必须配置在此xml配置到其他地方无效包括父context,如果启用包扫描，也要在这里单独配置controller的扫描
 		-->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
