@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.icms.core.entity">
+	<class name="Dictionary" table="CORE_DICTIONARY">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id name="id" type="java.lang.Long" column="ID"><generator class="native"/></id>
+		<property name="code" column="CODE" type="string"/>
+		<property name="name" column="NAME" type="string" not-null="true"/>
+		<!-- <property name="position" column="position" type="int" not-null="true"/>
+		<property name="description" column="DESCRIPTION" type="string"/>
+		<set name="child" inverse="true" order-by="SORT_POSITION ASC" cascade="all-delete-orphan">
+			<key column="PARENT"/>
+			<one-to-many class="Dictionary"/>
+		</set> -->
+	</class>
+</hibernate-mapping>

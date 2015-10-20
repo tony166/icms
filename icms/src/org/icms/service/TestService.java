@@ -1,7 +1,5 @@
 package org.icms.service;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.apache.commons.logging.Log;
@@ -19,7 +17,7 @@ public class TestService{
 	private TestDao testDao;
 	
 	public void test(){
-		List<Integer> list = testDao.getSession().createSQLQuery("select bean.user_id from jc_user_role bean").list();
+		//List<Integer> list = testDao.getSession().createSQLQuery("select bean.user_id from jc_user_role bean").list();
 		log.info("test");
 	}
 

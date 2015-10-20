@@ -1,11 +1,10 @@
 package org.icms.web.controller;
 
-import java.util.List;
+import javax.transaction.Transactional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.icms.bean.TestBean;
-import org.icms.service.TestService;
+import org.icms.core.manager.DictionaryMng;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,25 +14,14 @@ public class TestController {
 	public final Log log = LogFactory.getLog(getClass());
 	
 	@RequestMapping("/**/test")
+	@Transactional
 	public String test(String viewName){
-		testService.test();
-		log.info("test log: " + (null == testBean ? null : testBean.getName()));
+		dictionaryMng.testTransaction();
 		return viewName;
-	}
-
-	private TestBean testBean;
-
-	public TestBean getTestBean() {
-		return testBean;
-	}
-
-	@Autowired
-	public void setTestBean(TestBean testBean) {
-		this.testBean = testBean;
 	}
 	
 	@Autowired
-	private TestService testService;
+	private DictionaryMng dictionaryMng;
 	
 	
 }
