@@ -14,14 +14,11 @@ public class DictionaryMngImpl extends BaseManagerImpl<Dictionary> implements Di
 	public final Log log = LogFactory.getLog(getClass());
 	
 	@Override
+	@Transactional
 	public void testTransaction() {
 		Dictionary bean = new Dictionary("test1", "测试1");
 		bean = save(bean);
-		bean = new Dictionary("test2", "测2");
-		int a = 1;
-		if (a == 1){
-			throw new RuntimeException("test");
-		}
+		bean = new Dictionary("test2", "测试2");
 		bean = save(bean);
 		log.info("bean.id: " + bean.getId());		
 	}

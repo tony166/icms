@@ -1,7 +1,5 @@
 package org.icms.web.controller;
 
-import javax.transaction.Transactional;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.icms.core.manager.DictionaryMng;
@@ -14,7 +12,6 @@ public class TestController {
 	public final Log log = LogFactory.getLog(getClass());
 	
 	@RequestMapping("/**/test")
-	@Transactional
 	public String test(String viewName){
 		dictionaryMng.testTransaction();
 		return viewName;
